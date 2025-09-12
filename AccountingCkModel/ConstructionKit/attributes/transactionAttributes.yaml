@@ -1,0 +1,52 @@
+$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
+attributes:
+  - id: TransactionDate
+    valueType: DateTime
+    description: "Datum der Transaktion | Beispiel: 15.09.2025"
+  - id: CounterpartyAccount
+    valueType: Record
+    valueCkRecordId: ${thisModel}/AccountDetailsRecord
+    description: "Gegenkonto Details | Beispiel: { Iban: 'AT89370400440532013000', Name: 'Max Mustermann' }"
+  - id: OwnerAccount
+    valueType: Record
+    valueCkRecordId: ${thisModel}/AccountDetailsRecord
+    description: "Eigene Konto Details | Beispiel: { Iban: 'AT122345675901234567', Name: 'meshmakers GmbH' }"
+  - id: BicSwift
+    valueType: String
+    description: "BIC/Swift | Beispiel: SBGSAT2SXXX"
+  - id: AccountNumber
+    valueType: String
+    description: "Kontonummer | Beispiel: 0532013000"
+  - id: BankCode
+    valueType: String
+    description: "Bankleitzahl | Immer leer"
+  - id: TransactionText
+    valueType: String
+    description: "Verwendungszweck | Beispiel: Rechnung 2025-09-15-001"
+  - id: TransactionReference
+    valueType: String
+    description: "Transaktionsreferenz | Beispiel: 23010417558ALB-A6VOZ5"
+  - id: Highlight
+    valueType: Int
+    description: "Unbekannt | Immer leer"
+  - id: ValueDate
+    valueType: DateTime
+    description: "Valuta Datum | Beispiel: 15.09.2025"
+  - id: VirtualCard
+    valueType: String
+    description: "Virtuelle Karte | Immer leer"
+  - id: PayedWith
+    valueType: String
+    description: "Bezahlt mir | Immer leer"
+  - id: App
+    valueType: String
+    description: "App | Immer leer"
+  - id: PaymentReference
+    valueType: String
+    description: "Zahlungsreferenz | Beispiel: RNr: 2025-09-15-001"
+  - id: MandateId
+    valueType: String
+    description: "Mandatsreferenz | Immer leer"
+  - id: CreditorId
+    valueType: String
+    description: "Creditor ID | Immer leer"

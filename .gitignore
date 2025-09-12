@@ -1,0 +1,49 @@
+# Build results
+bin/
+obj/
+out/
+
+# Rider project files
+.idea/
+*.sln.iml
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.tmp
+*.userprefs
+
+# Logs
+*.log
+*.tlog
+
+# Visual Studio Code workspace
+.vscode/
+
+# Rider workspace
+.idea/
+
+# Backup files
+*.bak
+*.swp
+
+# Package directories
+packages/
+.vscode/
+
+# Dependency directories
+node_modules/
+.vsix/
+
+# Generated files
+*.generated.cs
+*.designer.cs
+
+# Configuration files
+appsettings.*.json
+secrets.json
+
+# OS-specific files
+.DS_Store
+Thumbs.db

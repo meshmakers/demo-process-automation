@@ -1,0 +1,19 @@
+$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
+attributes:
+  - id: AmountValue
+    valueType: Double
+    description: "Betrag | Beispiel: 1234,56"
+  - id: Currency
+    valueType: Enum
+    valueCkEnumId: ${thisModel}/CurrencyEnum
+    description: "Währung | Beispiel: EUR"
+  - id: Iban
+    valueType: String
+    description: "Iban | Beispiel: AT89370400440532013000"
+  - id: Amount
+    valueType: Record
+    valueCkRecordId: ${thisModel}/AmountRecord
+    description: "Betrag inkl. Währung RECORD | Beispiel: { Value: 1234,56, Currency: 'EUR' }"
+  - id: Name
+    valueType: String
+    description: "Name | Beispiel: Max Mustermann"

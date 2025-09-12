@@ -1,0 +1,26 @@
+$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
+types:
+  - typeId: Invoice
+    derivedFromCkTypeId: System/Entity
+    attributes:
+      - id: ${thisModel}/Name
+        name: IssuerName
+      - id: ${thisModel}/Street
+        name: IssuerStreet
+      - id: ${thisModel}/PostalCode
+        name: IssuerPostalCode
+      - id: ${thisModel}/City
+        name: IssuerCity
+      - id: ${thisModel}/InvoiceDate
+        name: InvoiceDate
+      - id: ${thisModel}/InvoiceNumber
+        name: InvoiceNumber
+      - id: ${thisModel}/Iban
+        name: IssuerIban
+      - id: ${thisModel}/BicSwift
+        name: IssuerBic
+      - id: ${thisModel}/Amount
+        name: Amount
+      - id: ${thisModel}/TaxRate
+        name: TaxRate
+      

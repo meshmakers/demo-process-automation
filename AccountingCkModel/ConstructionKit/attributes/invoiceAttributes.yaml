@@ -1,0 +1,20 @@
+$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
+attributes:
+  - id: Street
+    valueType: String
+    description: "Straße und Hausnummer | Beispiel: Firmianstr. 31A"
+  - id: PostalCode
+    valueType: String
+    description: "Postleitzahl | Beispiel: 5020"
+  - id: City
+    valueType: String
+    description: "Stadt | Beispiel: Salzburg"
+  - id: InvoiceDate
+    valueType: DateTime
+    description: "Datum der Rechnung | Beispiel: 15.09.2025"
+  - id: InvoiceNumber
+    valueType: String
+    description: "Rechnungsnummer | Beispiel: 2025-09-15-001"
+  - id: TaxRate
+    valueType: Int
+    description: "Steuersatz in Prozent | Beispiel: 20"

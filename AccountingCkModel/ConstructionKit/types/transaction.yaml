@@ -1,0 +1,39 @@
+$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
+types:
+  - typeId: Transaction
+    derivedFromCkTypeId: System/Entity
+    attributes:
+      - id: ${thisModel}/TransactionDate
+        name: TransactionDate
+      - id: ${thisModel}/CounterpartyAccount
+        name: CounterpartyAccount
+      - id: ${thisModel}/BicSwift
+        name: CounterpartBicSwift
+      - id: ${thisModel}/AccountNumber
+        name: CounterpartAccountNumber
+      - id: ${thisModel}/BankCode
+        name: CounterpartBankCode
+      - id: ${thisModel}/Amount
+        name: Amount
+      - id: ${thisModel}/TransactionText
+        name: TransactionText
+      - id: ${thisModel}/TransactionReference
+        name: TransactionReference
+      - id: ${thisModel}/Highlight
+        name: Highlight
+      - id: ${thisModel}/ValueDate
+        name: ValueDate
+      - id: ${thisModel}/VirtualCard
+        name: VirtualCard
+      - id: ${thisModel}/PayedWith
+        name: PayedWith
+      - id: ${thisModel}/App
+        name: App
+      - id: ${thisModel}/PaymentReference
+        name: PaymentReference
+      - id: ${thisModel}/MandateId
+        name: MandateId
+      - id: ${thisModel}/CreditorId
+        name: CreditorId
+      - id: ${thisModel}/OwnerAccount
+        name: OwnerAccount
