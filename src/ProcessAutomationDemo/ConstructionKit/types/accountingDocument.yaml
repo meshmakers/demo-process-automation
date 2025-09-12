@@ -9,12 +9,16 @@ types:
         isOptional: true
       - id: ${thisModel}/GrossTotal
         name: GrossTotal
+        isOptional: true
       - id: ${thisModel}/NetTotal
         name: NetTotal
+        isOptional: true
       - id: ${thisModel}/TaxTotal
         name: TaxTotal
+        isOptional: true
       - id: ${thisModel}/Issuer
         name: Issuer
+        isOptional: true
       - id: Basic/BankAccount
         name: BankAccount
         isOptional: true
