@@ -1,5 +1,7 @@
 param (
-    [string]$file
+    [string]$file,
+    [string]$tenant = "processautomationdemo",
+    [string]$baseUrl = "https://localhost:5020"
 )
 
 # check if file parameter is provided
@@ -18,7 +20,7 @@ $file = (Resolve-Path $file).Path
 Write-Host "Uploading file: $file"
 
 $pdfBytes = [System.IO.File]::ReadAllBytes($file)
-$response = Invoke-WebRequest -Uri "https://localhost:5020/meshtest/uploadaccountingdocumentv2" `
+$response = Invoke-WebRequest -Uri "$baseUrl/$tenant/uploadaccountingdocumentv2" `
     -Method Post `
     -Body $pdfBytes `
     -ContentType "application/pdf"
