@@ -1,0 +1,37 @@
+$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
+attributes:
+  - id: TransactionDate
+    valueType: DateTime
+    description: "Transaction date | Example: 2025-09-15"
+  - id: CounterpartyAccount
+    valueType: Record
+    valueCkRecordId: Basic/BankAccount
+    description: "Counterparty account details | Example: { Iban: 'AT89370400440532013000', Name: 'Max Mustermann' }"
+  - id: OwnerAccount
+    valueType: Record
+    valueCkRecordId: Basic/BankAccount
+    description: "Own account details | Example: { Iban: 'AT122345675901234567', Name: 'meshmakers GmbH' }"
+  - id: TransactionText
+    valueType: String
+    description: "Purpose of payment | Example: Invoice 2025-09-15-001"
+  - id: TransactionReference
+    valueType: String
+    description: "Transaction reference | Example: 23010417558ALB-A6VOZ5"
+  - id: ValueDate
+    valueType: DateTime
+    description: "Value date | Example: 2025-09-15"
+  - id: VirtualCard
+    valueType: String
+    description: "Virtual card | Always empty"
+  - id: PayedWith
+    valueType: String
+    description: "Paid with | Always empty"
+  - id: PaymentReference
+    valueType: String
+    description: "Payment reference | Example: Invoice No: 2025-09-15-001"
+  - id: MandateId
+    valueType: String
+    description: "Mandate reference | Always empty"
+  - id: CreditorId
+    valueType: String
+    description: "Creditor ID | Always empty"

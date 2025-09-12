@@ -1,0 +1,24 @@
+$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
+attributes:
+  - id: GrossTotal
+    valueType: Double
+    description: "The gross total amount, typically representing the total monetary value before deductions."
+    metaData:
+      - key: Unit
+        value: 'EUR'
+  - id: NetTotal
+    valueType: Double
+    description: "The net total amount, usually indicating the monetary value after deductions such as taxes or discounts."
+    metaData:
+      - key: Unit
+        value: 'EUR'
+  - id: TaxTotal
+    valueType: Double
+    description: "The total tax amount, representing the cumulative value of all applicable taxes on the gross total."
+    metaData:
+      - key: Unit
+        value: 'EUR'
+  - id: Issuer
+    valueType: Record
+    description: "Issuer of the accounting document"
+    valueCkRecordId: Basic/Contact

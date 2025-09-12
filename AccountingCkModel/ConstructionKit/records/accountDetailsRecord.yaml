@@ -1,8 +1,0 @@
-$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
-records:
-  - recordId: AccountDetailsRecord
-    attributes:
-      - id: ${thisModel}/Name
-        name: AccountName
-      - id: ${thisModel}/Iban
-        name: Iban

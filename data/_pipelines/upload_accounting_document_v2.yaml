@@ -1,0 +1,32 @@
+$schema: https://schemas.meshmakers.cloud/runtime-model.schema.json
+dependencies: []
+entities:
+- rtId: 68c3d7248351566e3753fc75
+  rtCreationDateTime: 2025-09-12T08:17:40.7750000Z
+  rtChangedDateTime: 2025-09-12T15:57:15.8550000Z
+  ckTypeId: System.Communication-1.0.0/MeshPipeline-1.0.0
+  associations:
+  - roleId: System-1.0.0/ParentChild-1.0.0
+    targetRtId: 68c3d7248351566e3753fc73
+    targetCkTypeId: System.Communication-1.0.0/DataPipeline-1.0.0
+    attributes: []
+  attributes:
+  - id: System.Communication-1.0.0/DeploymentState-1.0.0
+    value: 2
+  - id: System-1.0.0/Name-1.0.0
+    value: Mesh Pipeline
+  - id: System.Communication-1.0.0/StatusMessage-1.0.0
+  - id: System-1.0.0/Enabled-1.0.0
+    value: true
+  - id: System.Communication-1.0.0/PipelineDefinition-1.0.0
+    value: "triggers:\n  - type: FromHttpRequest@1\n    path: /uploadAccountingDocumentv2\n    method: POST\ntransformations:\n  - type: Logger@1\n    message: test\n  - type: If@1\n    description: if allowed content type\n    path: $.contentType\n    operator: Equals\n    value: \"application/pdf\"\n    valueType: String\n    transformations:\n      - type: CreateFileSystemUpdate@1\n        targetPath: $.fileSystemItem\n        path: $.body\n        generateRtId: true\n        generateFileName: true\n        contentTypePath: $.contentType\n        contentLengthPath: $.contentLength\n        rootFolderWellKnownName: \"Accounting\"\n      - type: PdfOcrExtraction@1\n        path: $.body\n        targetPath: $.ocr.result\n        includeConfidence: true\n        confidenceOutputPath: $.ocr.confidence\n      - type: AnthropicAiQuery@1\n        question: Extract the date of the accounting date of the invoice.\n        path: $.ocr.result\n        temperature: 0.1\n        responseFormat: json\n        targetPath: $.ai.result\n        jsonFormatSample: '{ \"transactionDate\": \"2024-01-15\", \"companyName\": \"BigComp GmbH\", \"companyAddress\": \"Main St, City, Country\",\"grossTotal\": 1200.00, \"netTotal\": 1000.00, \"taxAmount\": 200.00}'\n      - type: Project@1\n        fields:\n          - path: \"$.body\"\n          - path: \"$.bodyEncoding\"\n          - path: \"$.path\"  \n          - path: \"$.contentType\"\n          - path: \"$.contentLength\"\n          - path: \"$.method\"  \n      - type: CreateUpdateInfo@1\n        targetPath: $.updates._items\n        targetValueKind: Array\n        targetValueWriteMode: Append        \n        updateKind: INSERT\n        ckTypeId: AccountingDemo/AccountingDocument\n        rtIdPath: $.rtId\n        generateRtId: true\n        attributeUpdates:\n          - attributeName: GrossTotal\n            attributeValueType: Double\n            valuePath: $.ai.result.grossTotal          \n      - type: CreateAssociationUpdate@1\n        targetPath: $.updates._assocUpdateItems\n        targetValueKind: Array\n        targetValueWriteMode: Append\n        updateKind: CREATE\n        originRtIdPath: $.updates._items[0].RtEntity.RtId\n        originCkTypeIdPath: $.updates._items[0].RtEntity.CkTypeId\n        targetRtIdPath: $.fileSystemItem.RtId\n        targetCkTypeIdPath: $.fileSystemItem.CkTypeId\n        associationRoleId: System/Related\n      - type: ApplyChanges@2\n        entityUpdatesPath: $.updates._items\n        associationUpdatesPath: $.updates._assocUpdateItems        \n      - type: Project@1\n        fields:\n          - path: \"$.updates\"\n     "
+- rtId: 68c3d7248351566e3753fc73
+  rtCreationDateTime: 2025-09-12T08:17:40.7220000Z
+  rtChangedDateTime: 2025-09-12T13:48:31.4550000Z
+  ckTypeId: System.Communication-1.0.0/DataPipeline-1.0.0
+  associations: []
+  attributes:
+  - id: System-1.0.0/Name-1.0.0
+    value: upload_accounting_document_v2
+  - id: System-1.0.0/Description-1.0.0
+    value: Allows to upload an PDF document using HTTP.

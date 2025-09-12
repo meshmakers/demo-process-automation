@@ -1,0 +1,9 @@
+$schema: https://schemas.meshmakers.cloud/runtime-model.schema.json
+dependencies: []
+entities:
+  - rtId: 68c40496af0b987587062eec
+    ckTypeId: System.Reporting/FolderRoot
+    rtWellKnownName: Accounting
+    attributes:
+      - id: System/Name
+        value: Accounting

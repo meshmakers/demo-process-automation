@@ -7,33 +7,28 @@ types:
         name: TransactionDate
       - id: ${thisModel}/CounterpartyAccount
         name: CounterpartyAccount
-      - id: ${thisModel}/BicSwift
-        name: CounterpartBicSwift
-      - id: ${thisModel}/AccountNumber
-        name: CounterpartAccountNumber
-      - id: ${thisModel}/BankCode
-        name: CounterpartBankCode
+      - id: ${thisModel}/OwnerAccount
+        name: OwnerAccount
       - id: ${thisModel}/Amount
         name: Amount
       - id: ${thisModel}/TransactionText
         name: TransactionText
       - id: ${thisModel}/TransactionReference
         name: TransactionReference
-      - id: ${thisModel}/Highlight
-        name: Highlight
       - id: ${thisModel}/ValueDate
         name: ValueDate
       - id: ${thisModel}/VirtualCard
         name: VirtualCard
+        isOptional: true
       - id: ${thisModel}/PayedWith
         name: PayedWith
-      - id: ${thisModel}/App
-        name: App
+        isOptional: true
       - id: ${thisModel}/PaymentReference
         name: PaymentReference
+        isOptional: true
       - id: ${thisModel}/MandateId
         name: MandateId
+        isOptional: true
       - id: ${thisModel}/CreditorId
         name: CreditorId
-      - id: ${thisModel}/OwnerAccount
-        name: OwnerAccount
+        isOptional: true
