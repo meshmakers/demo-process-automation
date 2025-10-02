@@ -28,4 +28,10 @@ types:
       - id: Basic/DocumentDate
         name: DocumentDate
         isOptional: true
+      - id: ${thisModel}/TransactionNumber
+        name: TransactionNumber
+        isOptional: true
+      - id: ${thisModel}/DocumentState
+        name: DocumentState
+        isOptional: true
 

@@ -1,0 +1,11 @@
+$schema: https://schemas.meshmakers.cloud/construction-kit-elements.schema.json
+enums:
+  - enumId: AccountingDocumentState
+    values:
+      - key: 0
+        name: NEW
+      - key: 1
+        name: COMPLETED
+      - key: 2
+        name: REVIEW
+ 
