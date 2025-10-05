@@ -196,7 +196,7 @@ This unit demonstrates bulk document processing using the most advanced pipeline
 Process multiple invoices simultaneously with comprehensive data extraction:
 
 ```powershell
-.\uploadDirectoryv3.ps1 -directory "..\data\testFiles\1_anomalies\interval\"
+.\uploadDirectoryv3.ps1 -tenantId "processautomationdemo" -baseUrl "https://assets.staging.meshmakers.cloud" -directory "..\data\testFiles\1_anomalies\interval\"
 ```
 
 **Pipeline Features (v3):**
@@ -254,25 +254,17 @@ The v3 pipeline extracts a comprehensive data structure:
 - Tracks status, response, and errors for each file
 - Useful for audit trails and troubleshooting
 
-#### Sample Dataset - Anomaly Detection
-
-The `1_anomalies/interval/` directory contains 10 energy invoices from "Delta Energie Salzburg GmbH":
-
-- **Regular monthly invoices**: January - April, May 2023
-- **Anomaly pattern**: Multiple invoices in May 2023 (11th-15th)
-- **Use case**: Detect unusual billing patterns and frequency anomalies
-
 #### Usage Example
 
 ```powershell
 # Upload all anomaly test files
-.\uploadDirectoryv3.ps1 -directory "..\data\testFiles\1_anomalies\interval\"
+.\uploadDirectoryv3.ps1 -tenantId "processautomationdemo" -baseUrl "https://assets.staging.meshmakers.cloud" -directory "..\data\testFiles\1_anomalies\interval"
 
 # Custom directory with different base URL
-.\uploadDirectoryv3.ps1 -directory "C:\MyInvoices" -baseUrl "https://production:5020"
+.\uploadDirectoryv3.ps1 -tenantId "processautomationdemo" -baseUrl "https://assets.staging.meshmakers.cloud" -directory "..\data\testFiles\1_anomalies\amounts"
 
 # Upload only specific file types
-.\uploadDirectoryv3.ps1 -directory "..\data\testFiles\" -filter "*.pdf"
+.\uploadDirectoryv3.ps1 -tenantId "processautomationdemo" -baseUrl "https://assets.staging.meshmakers.cloud" -directory "..\data\testFiles\1_anomalies\iban" -filter "*.pdf"
 ```
 
 #### Expected Results
@@ -375,7 +367,7 @@ Expected results:
 
 1. **Import Data** (Unit 2):
    ```powershell
-   .\uploadDirectoryv3.ps1 -directory "..\data\testFiles\1_anomalies\interval\"
+   .\uploadDirectoryv3.ps1 -tenantId "processautomationdemo" -baseUrl "https://assets.staging.meshmakers.cloud" -directory "..\data\testFiles\1_anomalies\interval\"
    ```
 
 2. **Run ML.NET Detection**:
