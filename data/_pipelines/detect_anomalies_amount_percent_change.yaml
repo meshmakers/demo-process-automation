@@ -1,0 +1,31 @@
+$schema: https://schemas.meshmakers.cloud/runtime-model.schema.json
+dependencies: []
+entities:
+- rtId: 68e24502cd702ddd247d4eb8
+  rtCreationDateTime: 2025-10-05T10:14:26.1470000Z
+  rtChangedDateTime: 2025-10-05T13:09:32.5760000Z
+  ckTypeId: System.Communication-1.0.0/DataPipeline-1.0.0
+  associations: []
+  attributes:
+  - id: System-1.0.0/Name-1.0.0
+    value: detect_anomalies_amount_percent_change
+  - id: System-1.0.0/Description-1.0.0
+- rtId: 68e24502cd702ddd247d4eb9
+  rtCreationDateTime: 2025-10-05T10:14:26.2200000Z
+  rtChangedDateTime: 2025-10-05T13:08:52.3470000Z
+  ckTypeId: System.Communication-1.0.0/MeshPipeline-1.0.0
+  associations:
+  - roleId: System-1.0.0/ParentChild-1.0.0
+    targetRtId: 68e24502cd702ddd247d4eb8
+    targetCkTypeId: System.Communication-1.0.0/DataPipeline-1.0.0
+    attributes: []
+  attributes:
+  - id: System.Communication-1.0.0/DeploymentState-1.0.0
+    value: 0
+  - id: System-1.0.0/Name-1.0.0
+    value: Mesh Pipeline
+  - id: System.Communication-1.0.0/StatusMessage-1.0.0
+  - id: System-1.0.0/Enabled-1.0.0
+    value: true
+  - id: System.Communication-1.0.0/PipelineDefinition-1.0.0
+    value: "triggers:\n  - type: FromExecutePipelineCommand@1 \ntransformations:\n  - type: GetRtEntitiesByType@1\n    description: Getting accounting documents\n    ckTypeId: AccountingDemo/AccountingDocument\n    skip: 0 # Number of entities to skip\n    take: 100 # Number of entities to extract\n    targetPath: $.documents\n  - type: AnomalyDetection@1\n    description: Calculating anomaly scores  \n    path: $.documents.Items[*]\n    targetPath: $.anomalies\n    resetStatistics: true # We calculate for each run. When false statistics are cached.\n    detectors:\n      - path: $.Attributes.Issuer.Attributes.CompanyName #$.Attributes.GrossTotal\n        groupByPath: $.Attributes.Issuer.Attributes.CompanyName\n        contextPath: $\n        method: PercentChange\n        threshold: 50.0 # Abweichung > 50% wird als Anomalie erkannt\n        minSamples: 2 # Für testing reduzieren wir die Anzahl von samples.\n  - type: ForEach@1\n    description: iterate anomaly detections\n    iterationPath: $.anomalies\n    mergePath: $.updates\n    targetPath: $.updates\n    transformations:\n      - type: CreateUpdateInfo@1\n        targetPath: $.updates._items\n        targetValueKind: Array\n        updateKind: UPDATE\n        ckTypeId: AccountingDemo/AccountingDocument\n        rtIdPath: $.key.context.RtId\n        attributeUpdates:\n          - attributeName: DocumentState\n            attributeValueType: Enum\n            value: REVIEW\n          - attributeName: Comment\n            attributeValueType: String\n            valuePath: $.key.reason            \n  - type: Flatten@1\n    path: $.updates[*]._items[*]\n    targetPath: $._result._items\n    targetValueKind: Simple\n    targetValueWriteMode: Overwrite\n  - type: Project@1\n    fields:\n      - path: \"$.updates\"\n  - type: ApplyChanges@2 # we update here item-by-item\n    entityUpdatesPath: $._result._items          \n\n        "

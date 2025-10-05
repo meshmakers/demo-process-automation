@@ -22,7 +22,7 @@ entities:
     attributes: []
   attributes:
   - id: System.Communication-1.0.0/DeploymentState-1.0.0
-    value: 2
+    value: 0
   - id: System-1.0.0/Name-1.0.0
     value: Mesh Pipeline
   - id: System.Communication-1.0.0/StatusMessage-1.0.0
