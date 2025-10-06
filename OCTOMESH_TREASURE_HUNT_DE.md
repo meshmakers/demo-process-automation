@@ -23,22 +23,31 @@ Konstruiere clevere OctoMesh-Pipelines, um versteckte Hinweise in Dokumenten zu 
 In diesem Ordner findest du 10 PDF-Rechnungen: `data/testFiles/2_treasure_hunt/stage1/`
 
 **Deine Aufgabe:**
-1. Erstelle eine Pipeline, die alle PDFs mit OCR und AI verarbeitet
+1. Erstelle eine Pipeline, die alle AccountingDocuments mit Status "NEW" lädt
 2. Finde folgende versteckte Hinweise:
    - Alle IBANs, die mit "AT42" beginnen
    - Rechnungsnummern, die das Muster "2024-XXXX-MM" haben (MM = Meshmakers)
    - Netto-Beträge (NetTotal), die durch 13 teilbar sind
 3. Summiere die letzten 4 Ziffern aller gefundenen IBANs → **Code A**
 
-**Pipeline-Anforderungen:**
+**Tipps zum Pipeline-Design**
+* Erstelle für diese Stufe eine neue Pipeline, z.B. `treasure_hunt_stage1`
+* Nutze diese Transformatoren:
 ```yaml
-- PdfOcrExtraction@1
-- AnthropicAiQuery@1 
-- If@1
+- GetRtEntitiesByType@1
+- ForEach@1
+- If@1 # (Bedingte Logik mit z. B. Regex)
 - Math@1
 - ExecuteCSharp@1
-- Regex-Matching oder AI-basierte Mustererkennung
+- SetPrimitiveValue@1
+- Flatten@1
+- Project@1
+- SumAggregation@1
+- CreateUpdateInfo@1
+- ApplyChanges@2
 ```
+
+Für weitere Informationen und Beispiele siehe [OctoMesh Docs](https://docs.meshmakers.cloud/docs/technologyGuide/communication/dataPipelines/nodes/transformation/math_1) für Details zu den Nodes.
 
 ### 🎲 Stufe 2: Anomaly Hunter (25 Punkte)
 **"Finde die Schätze in den Daten"**
@@ -121,21 +130,31 @@ OCTO-2025-{MD5(Code_A + "-" + Code_B + "-" + Code_C).substring(0,8).toUpperCase(
 PdfOcrExtraction@1       # PDF Text-Extraktion
 AnthropicAiQuery@1       # AI-basierte Datenextraktion
 
+# Anomalie-Detection
+MachineLearningAnomalyDetection@1  # ML.NET Spike Detection
+StatisticalAnomalyDetection@1      # Statistische Methoden
+
 # Daten-Manipulation  
 ForEach@1                # Iteration über Arrays
 Project@1                # Felder selektieren
 Flatten@1                # Arrays glätten
 If@1                     # Bedingte Verarbeitung
-
-# Anomalie-Detection
-MachineLearningAnomalyDetection@1  # ML.NET Spike Detection
-StatisticalAnomalyDetection@1      # Statistische Methoden
+SetPrimitiveValue@1      # Primitive Werte setzen
+CreateUpdateInfo@1       # Update-Informationen erstellen
+ApplyChanges@2           # Änderungen anwenden
+GetRtEntitiesByType@1    # Entities eines Typs abrufen
+ExecuteCSharp@1          # C# Code ausführen
+FormatString@1           # Strings formatieren
+TransformString@1        # Strings transformieren
+SumAggregation@1         # Summenbildung
 
 # Berechnungen
-MathOperation@1          # Mathematische Operationen
-JavaScriptCode@1         # Custom JavaScript Logic
+Math@1                   # Mathematische Operationen
 Base64Encode@1           # Base64 Encoding
+Hash@1                   # Hashing (z.B. MD5, SHA256)
 ```
+
+Für weitere Informationen und Beispiele siehe [OctoMesh Docs](https://docs.meshmakers.cloud/docs/technologyGuide/communication/dataPipelines/nodes/transformation/math_1) für Details zu den Nodes.
 
 ### Nützliche Queries
 ```graphql
@@ -151,15 +170,15 @@ Base64Encode@1           # Base64 Encoding
 
 ### Test-Kommandos
 ```powershell
-# Pipeline ausführen
-octo-cli -c ExecutePipeline -n deine_pipeline_name
 
-# Entities abfragen
-octo-cli -c GetRtEntitiesByType -t AccountingDemo/AccountingDocument
-
-# Upload testen
-.\uploadDirectoryv3.ps1 -directory "data/treasure_hunt/stage1"
+# Upload der Testdateien für Stufe 1
+.\uploadDirectoryv3.ps1 -tenant <your tenant> -baseUrl https://adapter.staging.meshmakers.cloud  -directory "../data/testFiles/2_treasure_hunt/stage1/"
 ```
+
+# Upload der Testdateien für Stufe 2
+```powershell
+.\uploadDirectoryv3.ps1 -tenant <your tenant> -baseUrl https://adapter.staging.meshmakers.cloud  -directory "../data/testFiles/2_treasure_hunt/stage2/"
+``` 
 
 ## 📤 Einreichung
 
@@ -179,7 +198,6 @@ octo-cli -c GetRtEntitiesByType -t AccountingDemo/AccountingDocument
 
 - Starte mit den bereitgestellten Demo-Pipelines als Vorlage
 - Teste jede Stufe einzeln bevor du zur nächsten gehst
-- Die Anomalie-Detection ist der kniffligste Teil - experimentiere mit den Parametern!
 - Dokumentiere deine Gedankengänge - das hilft bei der Bonus-Bewertung
 - Bei Problemen: Schau in die `README.md` und die Pipeline-Beispiele
 
