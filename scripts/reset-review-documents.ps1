@@ -1,5 +1,5 @@
 param(
-    [string]$BaseUri = "https://localhost:5001",
+    [string]$BaseUrl = "https://localhost:5001",
 
     [string]$tenant = "processautomationdemo",
 
@@ -7,7 +7,7 @@ param(
     [string]$AuthToken
 )
 
-$graphqlEndpoint = "$BaseUri/tenants/$tenant/graphql"
+$graphqlEndpoint = "$BaseUrl/tenants/$tenant/graphql"
 Write-Host "Using GraphQL Endpoint: $graphqlEndpoint" -ForegroundColor Cyan
 
 $headers = @{

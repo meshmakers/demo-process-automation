@@ -31,7 +31,7 @@ if ($files.Count -eq 0) {
 }
 
 Write-Host "Found $($files.Count) file(s) to upload"
-Write-Host "=" * 50
+Write-Host ("=" * 50)
 
 $successCount = 0
 $failureCount = 0
@@ -76,11 +76,11 @@ foreach ($file in $files) {
 }
 
 # Summary
-Write-Host "=" * 50
+Write-Host ("=" * 50)
 Write-Host "Upload Summary:"
 Write-Host "  Total files: $($files.Count)"
 Write-Host "  Successful: $successCount" -ForegroundColor Green
-Write-Host "  Failed: $failureCount" $(if ($failureCount -gt 0) { "-ForegroundColor Red" })
+Write-Host "  Failed: $failureCount"
 Write-Host ""
 
 # Optional: Export results to CSV

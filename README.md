@@ -412,7 +412,7 @@ The `reset-review-documents.ps1` script allows you to reset all documents that a
 ```
 
 **Optional Parameters:**
-- `-BaseUri`: OctoMesh server base URI (default: `https://localhost:5001`)
+- `-BaseUrl`: OctoMesh server base URI (default: `https://localhost:5001`)
 - `-tenant`: Tenant name (default: `processautomationdemo`)
 
 **What it does:**

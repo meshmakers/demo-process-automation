@@ -1,1 +1,4 @@
-octo-cli -c delete -tid processautomationdemo
+param (
+    [string]$tenantId = "processautomationdemo"
+)
+octo-cli -c delete -tid $tenantId
