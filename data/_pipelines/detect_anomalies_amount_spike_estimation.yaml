@@ -1,18 +1,9 @@
 $schema: https://schemas.meshmakers.cloud/runtime-model.schema.json
 dependencies: []
 entities:
-- rtId: 68e26edecd702ddd247d4ebc
-  rtCreationDateTime: 2025-10-05T13:13:02.0270000Z
-  rtChangedDateTime: 2025-10-05T16:00:00.5910000Z
-  ckTypeId: System.Communication-1.0.0/DataPipeline-1.0.0
-  associations: []
-  attributes:
-  - id: System-1.0.0/Name-1.0.0
-    value: detect_anomalies_amount_spike_estimation
-  - id: System-1.0.0/Description-1.0.0
 - rtId: 68e26ef7cd702ddd247d4ebd
   rtCreationDateTime: 2025-10-05T13:13:27.7590000Z
-  rtChangedDateTime: 2025-10-05T16:02:13.4570000Z
+  rtChangedDateTime: 2025-10-06T06:42:48.6180000Z
   ckTypeId: System.Communication-1.0.0/MeshPipeline-1.0.0
   associations:
   - roleId: System-1.0.0/ParentChild-1.0.0
@@ -29,3 +20,13 @@ entities:
     value: true
   - id: System.Communication-1.0.0/PipelineDefinition-1.0.0
     value: "triggers:\n  - type: FromExecutePipelineCommand@1 \ntransformations:\n  - type: GetRtEntitiesByType@1\n    description: Getting accounting documents\n    ckTypeId: AccountingDemo/AccountingDocument\n    skip: 0 # Number of entities to skip\n    take: 100 # Number of entities to extract\n    targetPath: $.documents\n  - type: MachineLearningAnomalyDetection@1\n    description: Calculating anomaly scores  \n    path: $.documents.Items[*]\n    targetPath: $.anomalies\n    resetStatistics: true # We calculate for each run. When false statistics are cached.\n    detectors:\n      - path: $.Attributes.GrossTotal\n        groupByPath: $.Attributes.Issuer.Attributes.CompanyName\n        contextPath: $\n        detectSpikes: true\n        detectChangePoints: false\n        minDataPoints: 3 # We lower the amount of minimal data points to start calc for demo\n        pValueHistoryLength: 3\n  - type: ForEach@1\n    description: iterate anomaly detections\n    iterationPath: $.anomalies\n    mergePath: $.updates\n    targetPath: $.updates\n    transformations:\n      - type: FormatString@1\n        targetPath: $.key.reason  # Path where the formatted string will be stored\n        format: \"Invoice amounts are out of range with level {$.key.level}, score {$.key.score}, pValue {$.key.pValue}\"  # Format string with placeholders\n      - type: CreateUpdateInfo@1\n        targetPath: $.updates._items\n        targetValueKind: Array\n        updateKind: UPDATE\n        ckTypeId: AccountingDemo/AccountingDocument\n        rtIdPath: $.key.context.RtId\n        attributeUpdates:\n          - attributeName: DocumentState\n            attributeValueType: Enum\n            value: REVIEW\n          - attributeName: Comment\n            attributeValueType: String\n            valuePath: $.key.reason            \n  - type: Flatten@1\n    path: $.updates[*]._items[*]\n    targetPath: $._result._items\n    targetValueKind: Simple\n    targetValueWriteMode: Overwrite\n  - type: Project@1\n    fields:\n      - path: \"$.updates\"\n  - type: ApplyChanges@2 # we update here item-by-item\n    entityUpdatesPath: $._result._items          \n\n        "
+- rtId: 68e26edecd702ddd247d4ebc
+  rtCreationDateTime: 2025-10-05T13:13:02.0270000Z
+  rtChangedDateTime: 2025-10-06T06:55:03.9750000Z
+  ckTypeId: System.Communication-1.0.0/DataPipeline-1.0.0
+  associations: []
+  attributes:
+  - id: System-1.0.0/Name-1.0.0
+    value: detect_anomalies_amount_spike_estimation
+  - id: System-1.0.0/Description-1.0.0
+    value: Detects anomalies of Accounting Document grossTotals using Spike detection of MachineLearningAnomalyDetection node
